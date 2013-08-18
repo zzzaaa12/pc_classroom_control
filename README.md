@@ -28,5 +28,5 @@ PC_Classroom_Control_Tool
 10. 簡單的除錯功能  
   
 撰寫工具：Visual Basic 2008  
-執行環境：Windows XP / Windows7
+執行環境：Windows XP / Windows7  
 詳細功能與Demo可參考 http://zzzaaa12.pixnet.net/blog/post/25123821  
