@@ -12,7 +12,7 @@ Public Class Form1
     Dim boolAutoChangeName As Boolean = False '啟動時自動檢查&更改電腦名稱
     Dim strListPath As String = "C:\Program Files\MMLab\MAC.txt" '存放學生機資料的地方
     Dim strIP_Prefix As String = "192.168.55"  '固定IP網段
-    Dim strNetMask As String = "255.255.255.0" '網樂遮罩
+    Dim strNetMask As String = "255.255.255.0" '網路遮罩
     Dim strGateway As String = "192.168.55.1"  '預設Gateway
     Dim strListURL As String = "http://"       'MAC文字檔下載位址
     Dim strNamePrefix = "S"                    '學生機編號前段
@@ -72,7 +72,7 @@ Public Class Form1
             Dim SR As StreamReader = New StreamReader(strListPath, False)
             For i = 1 To 55
                 strLine = SR.ReadLine      '文字檔逐行取出
-                tmp = Split(strLine, ",")  '依據逗點切割成兩部份  SS1(0)為名稱  SS1(1)為MAC位址
+                tmp = Split(strLine, ",")  '依據逗點切割成兩部份  tmp(0)為名稱 tmp(1)為MAC位址 tmp(2)為編號
                 strNAME(i) = tmp(0)
                 strMAC(i) = tmp(1)
                 strNo(i) = tmp(2)
@@ -86,7 +86,6 @@ Public Class Form1
                 If adapter.NetworkInterfaceType = NetworkInterfaceType.Ethernet Then
                     tmpMAC = adapter.GetPhysicalAddress.ToString
 
-                    '過濾錯誤的MAC位址：長度判斷、去除虛擬網卡
                     If tmpMAC.Length = 12 Then
                         For i = 1 To 55
                             If tmpMAC.ToUpper = strMAC(i).ToUpper Then
@@ -134,7 +133,7 @@ Public Class Form1
                 RecvB = UDPS.Receive(source)
                 strRecv = Encoding.Default.GetString(RecvB, 0, RecvB.Length)
 
-                '將訊息放到 Debug form 上面
+                '將訊息放到 Debug 上面的 Listbox
                 debug.ListBox1.Items.Add("Received: " + strRecv)
                 If debug.ListBox1.Items.Count > 0 Then
                     debug.ListBox1.SelectedIndex = debug.ListBox1.Items.Count - 1
@@ -156,7 +155,7 @@ Public Class Form1
         Dim i As Integer
         Dim temp1(), temp2() As String
 
-        '檢查是否重複收到
+        '檢查是否重複收到，與上次相同就略過
         If lastRecv = strRecv Then
             Exit Sub
         End If
@@ -176,7 +175,7 @@ Public Class Form1
                 teacher = New IPEndPoint(addr(1), send_port)
             End Try
 
-            ' 取得IPv4位址
+            ' 取得IPv4位址再進行連線
             For i = 1 To addr.Length.ToString
                 If addr(i).AddressFamily = AddressFamily.InterNetwork Then
                     teacher = New IPEndPoint(addr(i), send_port)
@@ -199,12 +198,12 @@ Public Class Form1
 
         ElseIf Mid(strRecv, 1, 1) = "@" Then
             Try
-                temp1 = Split(strRecv, ",") 'temp1(1):數量  temp1(2):電腦   temp1(3):cmd  temp1(4):message長度  temp1(5): Message
+                temp1 = Split(strRecv, ",") 'temp1(1):數量  temp1(2):電腦編號  temp1(3):cmd
                 temp2 = Split(temp1(2), "-") '電腦編號
-                Count = Int(temp1(1)) '       電腦數量
-                cmd = Int(temp1(3))  '        cmd編號
+                Count = Int(temp1(1))        '電腦數量
+                cmd = Int(temp1(3))          'cmd編號
                 If cmd > 50 Then
-                    message = temp1(4) '          訊息
+                    message = temp1(4)       '訊息
                 End If
 
             Catch ex As Exception
@@ -302,7 +301,7 @@ Public Class Form1
                     Shell("C:\Program Files\Mozilla Firefox\firefox.exe", AppWinStyle.NormalFocus, False)
                 End If
 
-            Case 23  '顯示Debug
+            Case 23 '顯示Debug
                 debug.Show()
 
             Case 24 '隱藏Debug
