@@ -6,7 +6,7 @@ Imports System.Text
 Imports System.IO
 Imports Microsoft.Win32
 
-Public Class Form1
+Public Class Main
 
     Private Declare Function SetComputerName Lib "kernel32" Alias "SetComputerNameA" (ByVal lpComputerName As String) As Long
     Dim boolAutoChangeName As Boolean = False '啟動時自動檢查&更改電腦名稱
@@ -35,11 +35,11 @@ Public Class Form1
     Dim boolInList As String = False
 
     '隱藏視窗
-    Private Sub Form1_Layout(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LayoutEventArgs) Handles MyBase.Layout
+    Private Sub Main_Layout(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LayoutEventArgs) Handles MyBase.Layout
         Me.Hide()
     End Sub
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Dim nics() As NetworkInterface = NetworkInterface.GetAllNetworkInterfaces
         Dim properties As IPInterfaceProperties

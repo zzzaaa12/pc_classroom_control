@@ -1,3 +1,2 @@
-﻿
-Public Class Information
+﻿Public Class Information
 End Class

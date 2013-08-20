@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class debug
+Partial Class Debug
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -33,14 +33,14 @@ Partial Class debug
         Me.ListBox1.Size = New System.Drawing.Size(742, 319)
         Me.ListBox1.TabIndex = 0
         '
-        'debug
+        'Debug
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 366)
         Me.Controls.Add(Me.ListBox1)
-        Me.Name = "debug"
-        Me.Text = "MMLab管理程式 - 被控端 [Debug Mode]"
+        Me.Name = "Debug"
+        Me.Text = "PC_Classroom_Student [Debug Mode]"
         Me.TopMost = True
         Me.ResumeLayout(False)
 
